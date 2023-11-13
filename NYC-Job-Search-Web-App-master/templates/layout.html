@@ -1,0 +1,44 @@
+<!doctype html>
+
+<title>NYC Job Search</title>
+
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<body>
+<div class=page>
+    <h1> NYC Job Search </h1>
+    <div class="row" style=" margin: auto;">
+        <p>Designed by <a href="https://github.com/XiplusChenyu/NYC-Job-Search-Web-App">Chenyu Xi</a></p>
+    </div>
+
+    {% for message in get_flashed_messages() %}
+        <div class=flash id="notice" onclick="disappear(this.id)">{{ message }} (click me to hide) <br/></div>
+    {% endfor %}
+
+    <div class=metanav>
+
+    {% block body %}
+
+    {% endblock %}
+    </div>
+    <br/>
+ <div>
+        {% if not session.logged_in %}
+            {% if page == 'login' %}
+            <a class="btn" style="font:30px bold" href="{{ url_for('signup') }}">sign up</a>
+            {% else %}
+            <a class="btn" style="font:30px bold" href="{{ url_for('login') }}">log in</a>
+            {% endif %}
+        {% else %}
+            <a class="btn" style="font:30px bold" href="{{ url_for('logout') }}">log out</a>
+        {% endif %}
+    </div>
+</div>
+</body>
+<script>
+    function disappear(id){
+        let element = document.getElementById(id);
+        element.style.display = "none";
+    }
+</script>
